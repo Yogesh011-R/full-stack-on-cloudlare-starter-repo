@@ -9,6 +9,13 @@
 	"compatibility_date": "2025-06-17",
 	"compatibility_flags": ["nodejs_compat"],
 	"observability": {
-		"enabled": true,
+		"enabled": true
 	},
+	"kv_namespaces": [
+		{
+			"binding": "CACHE",
+			"id": "8dd0f4052b64495998645543f3adaecf",
+			"experimental_remote": true
+		}
+	]
 }

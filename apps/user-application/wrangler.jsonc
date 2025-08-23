@@ -9,9 +9,23 @@
   "compatibility_date": "2025-06-17",
   "assets": {
     "binding": "ASSETS",
-    "not_found_handling": "single-page-application",
+    "not_found_handling": "single-page-application"
   },
   "observability": {
-    "enabled": true,
+    "enabled": true
   },
+  "kv_namespaces": [
+    {
+      "binding": "CACHE",
+      "id": "8dd0f4052b64495998645543f3adaecf",
+      "experimental_remote": true
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_id": "7ec7720a-7add-4e9b-bb0a-11089d714ef5",
+      "experimental_remote": true
+    }
+  ]
 }
