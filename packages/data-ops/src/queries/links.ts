@@ -1,6 +1,7 @@
 import { getDb } from "@/db/database";
-import { links } from "@/drizzle-out/schema";
+import { linkClicks, links } from "@/drizzle-out/schema";
 import { CreateLinkSchemaType, destinationsSchema, DestinationsSchemaType, linkSchema } from "@/zod/links";
+import { LinkClickMessageType } from "@/zod/queue";
 import { and, desc, eq, gt } from "drizzle-orm";
 import { nanoid } from "nanoid";
 
@@ -71,3 +72,17 @@ export const updateLinkDestinations = async ({ linkId, destinations }: { linkId:
   const destinationsParsed = destinationsSchema.parse(destinations);
   await db.update(links).set({ destinations: JSON.stringify(destinationsParsed) }).where(eq(links.linkId, linkId));
 };
+
+
+export const addLinkClick = async (info: LinkClickMessageType['data']) => {
+  const db = getDb();
+  await db.insert(linkClicks).values({
+    id: info.id,
+    accountId: info.accountId,
+    destination: info.destination,
+    clickedTime: info.timestamp,
+    country: info.country,
+    latitude: info.latitude,
+    longitude: info.longitude,
+  });
+}

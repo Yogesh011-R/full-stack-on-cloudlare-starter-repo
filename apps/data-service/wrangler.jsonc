@@ -11,6 +11,9 @@
 	"observability": {
 		"enabled": true
 	},
+	"browser": {
+		"binding": "VIRTUAL_BROWSER"
+	},
 	"d1_databases": [
 		{
 			"binding": "DB",
@@ -23,6 +26,29 @@
 			"binding": "CACHE",
 			"id": "6ee23df9a8d24a2ca45d39d637b11527",
 			"experimental_remote": true
+		}
+	],
+	"queues": {
+		"consumers": [
+			{
+				"queue": "smart-links-data-queue-stage",
+				"dead_letter_queue": "smart-links-data-queue-stage-dlq"
+				// "max_retries": 5 // Default is 3,
+				// "retry_interval": 60 // Default is 60 seconds
+			}
+		],
+		"producers": [
+			{
+				"binding": "QUEUE",
+				"queue": "smart-links-data-queue-stage"
+			}
+		]
+	},
+	"workflows": [
+		{
+			"binding": "DESTINATION_EVALUATION_WORKFLOW",
+			"class_name": "DestinationEvaluationWorkflow",
+			"name": "destination-evaluation-workflow"
 		}
 	]
 }
