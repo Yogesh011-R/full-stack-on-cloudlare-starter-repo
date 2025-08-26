@@ -1,19 +1,14 @@
-import { Hono } from "hono";
+import { WorkerEntrypoint } from 'cloudflare:workers'
+import { App } from './hono';
+import { initDatabase } from '@repo/data-ops/database';
 
-const app = new Hono<{ Bindings: Env }>();
+export default class DataService extends WorkerEntrypoint<Env> {
+	constructor(ctx: ExecutionContext, env: Env) {
+		super(ctx, env)
+		initDatabase(env.DB)
+	}
+	fetch(request: Request) {
+		return App.fetch(request, this.env, this.ctx);
+	}
 
-
-app.get("/", (c) => c.text("Hello World! 123"));
-
-app.get('/save-id/:id', async (c) => {
-	const id = c.req.param('id');
-	await c.env.CACHE.put('test', id);
-	return c.text(`Saved ID: ${id}`);
-})
-
-app.get('/get-id', async (c) => {
-	const id = await c.env.CACHE.get('test');
-	return c.text(`ID: ${id}`);
-})
-
-export default app;
+}

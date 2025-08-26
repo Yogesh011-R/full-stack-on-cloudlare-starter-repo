@@ -14,13 +14,6 @@
   "observability": {
     "enabled": true
   },
-  "kv_namespaces": [
-    {
-      "binding": "CACHE",
-      "id": "8dd0f4052b64495998645543f3adaecf",
-      "experimental_remote": true
-    }
-  ],
   "d1_databases": [
     {
       "binding": "DB",
